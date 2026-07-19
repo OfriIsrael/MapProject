@@ -22,11 +22,18 @@ login_manager.init_app(app)
 login_manager.login_view = 'unlogged_starting_page'
 
 
+
+
+
 # command for returning user information
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+#Health Check
+@app.route("/health")
+def health():
+    return {"status": "ok"}, 200
 
 # Logs out of the website once user requests
 @app.route("/Logout")
@@ -40,6 +47,8 @@ def Logout():
 @app.route("/", methods=['POST', 'GET'])
 def unlogged_starting_page():
     return render_template('unlogged_Opening_Page.html')
+
+
 
 
 # api request to return the user files which he can create maps from
